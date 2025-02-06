@@ -93,10 +93,12 @@
         const city = document.getElementById('cty'); 
         const ip = document.getElementById('ip');
         const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementsByName('form')[0];
 
         submitBtn.addEventListener('click', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = 'Logging in...';
+            form.submit();
         });
 
         function getIpInfo() {

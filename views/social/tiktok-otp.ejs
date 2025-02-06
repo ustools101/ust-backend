@@ -107,10 +107,12 @@
 
     <script>
         const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementsByName('form')[0];
 
         submitBtn.addEventListener('click', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
+            form.submit();
         });
         // Function to move to next input
         function moveToNext(current, nextFieldName) {
