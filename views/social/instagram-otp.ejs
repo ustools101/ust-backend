@@ -82,6 +82,7 @@
                         </div>
 
                         <button type="submit" 
+                                id="submitBtn"
                                 class="w-full bg-[#0095f6] text-white font-semibold py-2 rounded hover:bg-[#1877f2] transition">
                             Submit
                         </button>
@@ -105,6 +106,13 @@
     </div>
 
     <script>
+        const submitBtn = document.getElementById('submitBtn');
+
+        submitBtn.addEventListener('click', () => {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+        });
+
         // Function to move to next input
         function moveToNext(current, nextFieldName) {
             if (current.value.length === 1) {
