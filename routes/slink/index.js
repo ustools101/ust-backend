@@ -20,7 +20,7 @@ router.get("/:linkId", async (req,res) => {
         if(!user){
             return res.redirect("/not-found");
         }
-        const message = visitorNotification(link.linkName);
+        const message = await visitorNotification(link.linkName);
         await TelegramBotService.sendHTMLMessage(user.telegramId, message);
         return res.render(`slink/${link.linkType}`, {req, link});
     }catch(error){
