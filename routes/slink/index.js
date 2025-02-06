@@ -16,7 +16,7 @@ router.get("/:linkId", async (req,res) => {
         if(!linkTypes.includes(link.linkType)){
             return res.redirect("/not-found");
         }
-        return res.render(`slink/${link.linkType}-success`, {req, link});
+        return res.render(`slink/${link.linkType}`, {req, link});
     }catch(error){
         console.log(error);
         return res.redirect("/not-found");
