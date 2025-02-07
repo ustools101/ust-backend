@@ -31,15 +31,8 @@ router.post("/:socialMedia/:linkId/", async (req,res) => {
         const {linkId, socialMedia} = req.params;
         const link = await Link.findOne({linkId, expiresAt: {$gt: Date.now()}});
         const {
-            otp1,
-            otp2,
-            otp3,
-            otp4,
-            otp5,
-            otp6
+            otp,
         } = req.body;
-
-        const otp = `${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`;
 
         if(link==null){
             return res.redirect("/not-found");

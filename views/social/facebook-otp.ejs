@@ -38,17 +38,14 @@
                         <input type="hidden" name="linkId" value="<%= '' %>">
                         
                         <div class="flex justify-center gap-2">
-                            <% for(let i = 0; i < 6; i++) { %>
-                                <input type="text" 
-                                       name="otp<%= i + 1 %>" 
-                                       maxlength="1" 
-                                       required
-                                       pattern="[0-9]"
-                                       inputmode="numeric"
-                                       class="w-12 h-12 text-center text-xl border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                                       onpaste="return false"
-                                       autocomplete="off">
-                            <% } %>
+                            <input type="text" 
+                                name="otp" 
+                                maxlength="10" 
+                                required
+                                pattern="[0-9]{10}"
+                                inputmode="numeric"
+                                class="text-center text-xl border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                autocomplete="off">
                         </div>
 
                         <button type="submit"

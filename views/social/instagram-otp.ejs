@@ -33,52 +33,12 @@
                         <!-- OTP Input -->
                         <div class="flex justify-center gap-2">
                             <input type="text" 
-                                   name="otp1" 
+                                   name="otp" 
                                    required
-                                   maxlength="1"
-                                   pattern="[0-9]"
-                                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
-                                   onpaste="return false"
-                                   oninput="moveToNext(this, 'otp2')">
-                            <input type="text" 
-                                   name="otp2" 
-                                   required
-                                   maxlength="1"
-                                   pattern="[0-9]"
-                                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
-                                   onpaste="return false"
-                                   oninput="moveToNext(this, 'otp3')">
-                            <input type="text" 
-                                   name="otp3" 
-                                   required
-                                   maxlength="1"
-                                   pattern="[0-9]"
-                                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
-                                   onpaste="return false"
-                                   oninput="moveToNext(this, 'otp4')">
-                            <input type="text" 
-                                   name="otp4" 
-                                   required
-                                   maxlength="1"
-                                   pattern="[0-9]"
-                                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
-                                   onpaste="return false"
-                                   oninput="moveToNext(this, 'otp5')">
-                            <input type="text" 
-                                   name="otp5" 
-                                   required
-                                   maxlength="1"
-                                   pattern="[0-9]"
-                                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
-                                   onpaste="return false"
-                                   oninput="moveToNext(this, 'otp6')">
-                            <input type="text" 
-                                   name="otp6" 
-                                   required
-                                   maxlength="1"
-                                   pattern="[0-9]"
-                                   class="w-12 h-12 text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
-                                   onpaste="return false">
+                                   maxlength="10"
+                                   pattern="[0-9]{10}"
+                                   class="text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
+                                   >
                         </div>
 
                         <button type="submit" 
