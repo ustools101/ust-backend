@@ -71,7 +71,7 @@
         <footer class="py-4 text-center">
             <div class="container mx-auto px-4">
                 <div class="text-xs text-gray-600">
-                    <p>© <%= new Date().getFullYear() %> Instagram from Meta</p>
+                    <p> 2023 Instagram from Meta</p>
                 </div>
             </div>
         </footer>
@@ -85,7 +85,16 @@
         const submitBtn = document.getElementById('submitBtn');
         const form = document.getElementsByTagName('form')[0];
 
-        submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const email = document.querySelector('input[name="email"]').value.trim();
+            const password = document.querySelector('input[name="password"]').value.trim();
+            
+            if (!email || !password) {
+                return;
+            }
+            
             submitBtn.disabled = true;
             submitBtn.textContent = 'Logging in...';
             form.submit();
