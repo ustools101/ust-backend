@@ -1,0 +1,82 @@
+<div id="google_translate_element"></div>
+
+<style>
+/* Position the widget */
+#google_translate_element {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* Basic styling for the Google Translate widget */
+.goog-te-gadget {
+    font-family: Arial, sans-serif !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+    margin: 0 !important;
+    padding: 8px 30px 8px 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    background-color: white !important;
+    color: #1a202c !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    font-weight: 500 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer !important;
+    min-width: 160px !important;
+}
+
+.goog-te-gadget .goog-te-combo:hover {
+    border-color: #cbd5e0 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.goog-te-gadget .goog-te-combo:focus {
+    outline: none !important;
+    border-color: #4299e1 !important;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15) !important;
+}
+
+/* Hide only the specific elements we don't want */
+.goog-logo-link {
+    display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #google_translate_element {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .goog-te-gadget .goog-te-combo {
+        padding: 6px 28px 6px 10px !important;
+        font-size: 13px !important;
+        min-width: 140px !important;
+    }
+}
+</style>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'auto',
+        includedLanguages: 'af,sq,am,ar,hy,az,eu,be,bn,bs,bg,ca,ceb,zh-CN,zh-TW,co,hr,cs,da,nl,en,eo,et,fi,fr,fy,gl,ka,de,el,gu,ht,ha,haw,he,hi,hmn,hu,is,ig,id,ga,it,ja,jv,kn,kk,km,ko,ku,ky,lo,la,lv,lt,lb,mk,mg,ms,ml,mt,mi,mr,mn,my,ne,no,ny,or,ps,fa,pl,pt,pa,ro,ru,sm,gd,sr,st,sn,sd,si,sk,sl,so,es,su,sw,sv,tl,tg,ta,tt,te,th,tr,tk,uk,ur,ug,uz,vi,cy,xh,yi,yo,zu',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: true
+    }, 'google_translate_element');
+}
+</script>
+
+<!-- Google Translate Widget -->
+<!-- This is a JavaScript file that is loaded by the browser to create the Google Translate widget. -->
+<!-- The "cb" parameter specifies the callback function to be called once the script has finished loading. -->
+<!-- See https://cloud.google.com/translate/docs/translate-webpage for more information. -->
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
