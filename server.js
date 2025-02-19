@@ -4,8 +4,10 @@ const app = express();
 require("dotenv").config();
 require("./lib/telegramBot");
 require("./lib/mongodb");
+const cors = require("cors")
 
 // Set EJS as templating engine
+app.use(cors({origin: '*'}));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
@@ -29,11 +31,6 @@ app.use('/api', apiRouter);
 app.use("/not-found", (req, res) => {
     res.render('not-found');
 });
-// Basic route
-app.get('/', (req, res) => {
-    res.render('social/facebook-otp', { message: 'Hello World!' });
-});
-
 // not found for everything else
 app.use((req, res) => {
     res.status(404).render('not-found');
