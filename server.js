@@ -16,6 +16,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+    const userAgent = req.headers['user-agent'] || "";
+    if (userAgent.includes("Instagram")) {
+      return res.status(403).send("Please open this website with Safari, Chrome or another browser.");
+    }
+    next();
+});
+
 // Session and Flash middleware setup
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
