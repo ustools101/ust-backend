@@ -16,13 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-    const userAgent = req.headers['user-agent'] || "";
-    if (userAgent.includes("Instagram")) {
-      return res.render("openwithbrowser");
-    }
-    next();
-});
+// app.use((req, res, next) => {
+//     const userAgent = req.headers['user-agent'] || "";
+//     if (userAgent.includes("Instagram")) {
+//       return res.render("openwithbrowser");
+//     }
+//     next();
+// });
 
 // Session and Flash middleware setup
 app.use(session({
