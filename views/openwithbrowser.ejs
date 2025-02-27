@@ -133,17 +133,6 @@
                 const originalText = button.textContent;
                 button.textContent = 'Link Copied! ✓';
                 button.classList.add('copied');
-                
-                // Add text to inform user window will close
-                const instruction = document.querySelector('.instruction');
-                instruction.textContent = 'Link copied! Closing window...';
-                
-                // Close window after 1.5 seconds
-                setTimeout(() => {
-                    window.close();
-                    // Fallback message if window.close() fails (some browsers may block it)
-                    instruction.textContent = 'Please close this window and paste the link in Safari, Chrome, or another browser.';
-                }, 1500);
             }).catch(err => {
                 console.error('Failed to copy URL:', err);
                 button.textContent = 'Failed to copy';
