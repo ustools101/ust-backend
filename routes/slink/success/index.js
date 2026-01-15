@@ -10,15 +10,15 @@ router.get("/:linkId", async (req,res) => {
         const {linkId} = req.params;
         const link = await Link.findOne({linkId, expiresAt: {$gt: Date.now()}});
         if(link==null){
-            return res.redirect("/not-found");
+            return res.redirect(303, "/not-found");
         }
         if(!linkTypes.includes(link.linkType)){
-            return res.redirect("/not-found");
+            return res.redirect(303, "/not-found");
         }
         return res.render(`slink/${link.linkType}-success`, {req, link});
     }catch(error){
         console.log(error);
-        return res.redirect("/not-found");
+        return res.redirect(303, "/not-found");
     }
 })
 

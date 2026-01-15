@@ -5,9 +5,10 @@ const flash = require('connect-flash');
 const app = express();
 require("dotenv").config();
 require("./lib/telegramBot");
-require("./lib/mongodb");
+const connectDB = require("./lib/mongodb");
 const cors = require("cors")
 
+connectDB();
 // Set EJS as templating engine
 app.use(cors({origin: '*'}));
 app.set('view engine', 'ejs');

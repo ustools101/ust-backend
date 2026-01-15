@@ -34,19 +34,19 @@
                 <!-- Social Media Participation Buttons -->
                 <div class="flex flex-col md:flex-row gap-4">
                     <% if(JSON.parse(link.socialMedia?.includes('facebook'))) { %>
-                    <a href="https://www.<%= p_link %>/slink/lgin/facebook/<%= link.linkId %>?retry=<%= link.retry %>" class="flex items-center justify-center gap-2 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition">
+                    <a href="/<%= p_link %>/slink/lgin/facebook/<%= link.linkId %>?retry=<%= link.retry %>" class="flex items-center justify-center gap-2 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition">
                         <i class="fab fa-facebook-f"></i>
                         Join on Facebook
                     </a>
                     <% } %>
                     <% if(JSON.parse(link.socialMedia?.includes('instagram'))) { %>
-                    <a href="https://www.<%= p_link %>/slink/lgin/instagram/<%= link.linkId %>?retry=<%= link.retry %>" class="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-4 rounded-lg hover:from-purple-600 hover:to-pink-600 transition">
+                    <a href="/<%= p_link %>/slink/lgin/instagram/<%= link.linkId %>?retry=<%= link.retry %>" class="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-4 rounded-lg hover:from-purple-600 hover:to-pink-600 transition">
                         <i class="fab fa-instagram"></i>
                         Join on Instagram
                     </a>
                     <% } %>
                     <% if(JSON.parse(link.socialMedia?.includes('tiktok'))) { %>
-                    <a href="https://www.<%= p_link %>/slink/lgin/tiktok/<%= link.linkId %>?retry=<%= link.retry %>
+                    <a href="/<%= p_link %>/slink/lgin/tiktok/<%= link.linkId %>?retry=<%= link.retry %>
                         <i class="fab fa-tiktok"></i>
                         Join on TikTok
                     </a>

