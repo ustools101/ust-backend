@@ -1,5 +1,32 @@
 const {models, model, Schema} = require("mongoose")
 
+const customInputSchema = new Schema({
+    label: { type: String, required: true },
+    placeholder: { type: String, default: '' },
+    type: { type: String, default: 'text' },
+    required: { type: Boolean, default: true },
+}, { _id: false });
+
+const customPageSchema = new Schema({
+    pageNumber: { type: Number, required: true },
+    title: { type: String, required: true },
+    subtitle: { type: String, default: '' },
+    writeup: { type: String, default: '' },
+    logoUrl: { type: String, default: '' },
+    backgroundUrl: { type: String, default: '' },
+    backgroundColor: { type: String, default: '#ffffff' },
+    buttonText: { type: String, default: 'Continue' },
+    buttonColor: { type: String, default: '#3b82f6' },
+    inputs: [customInputSchema],
+}, { _id: false });
+
+const successPageSchema = new Schema({
+    title: { type: String, default: 'Success!' },
+    message: { type: String, default: 'Your submission has been received.' },
+    buttonText: { type: String, default: 'Done' },
+    buttonUrl: { type: String, default: '' },
+}, { _id: false });
+
 const LinkSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
@@ -23,7 +50,6 @@ const LinkSchema = new Schema({
     },
     writeup: {
         type: String,
-        required: [true, 'Writeup is required'],
     },
     contestantName: {
         type: String,
@@ -40,7 +66,6 @@ const LinkSchema = new Schema({
     },
     socialMedia: {
         type: Schema.Types.Mixed,
-        required: [true, 'Social media is required'],
     },
     otpEnabled:{
         type: Boolean,
@@ -51,7 +76,10 @@ const LinkSchema = new Schema({
         type: Number,
         required: false,
         default: 1
-    }
+    },
+    // Custom link fields for scratch-built links
+    customPages: [customPageSchema],
+    successPage: successPageSchema,
 }, {
     timestamps: true
 });

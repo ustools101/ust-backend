@@ -52,15 +52,29 @@ router.post('/credits/add', async (req, res) => {
 
 router.post("/webhook", async (req, res) => {
     try {
-        const chatId = req.body.message.from.id;
-        const text = req.body.message.text;
+        const message = req.body.message;
+        
+        // Guard: ignore non-message updates (edited messages, callbacks, etc.)
+        if (!message || !message.from) {
+            return res.status(200).json({ success: true });
+        }
 
-        if (text.toLowerCase() === '/start' || text.toLowerCase() === '/telegramid' || text.toLowerCase() === 'start' || text.toLowerCase() === 'telegramid') {
+        const chatId = message.from.id;
+        const text = message.text;
+
+        // Guard: ignore non-text messages (photos, stickers, etc.)
+        if (!text) {
+            return res.status(200).json({ success: true });
+        }
+
+        const lowerText = text.toLowerCase();
+
+        if (lowerText === '/start' || lowerText === '/telegramid' || lowerText === 'start' || lowerText === 'telegramid') {
             await sendMessage(chatId, chatId);
         }
 
         // handle password reset
-        if (text.toLowerCase() === '/reset' || text.toLowerCase() === 'reset') {
+        if (lowerText === '/reset' || lowerText === 'reset') {
             const users = await User.find({ telegramId: chatId });
             if (!users) {
                 await sendMessage(chatId, 'You are not registered');

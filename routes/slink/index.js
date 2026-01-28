@@ -13,6 +13,12 @@ router.get("/:linkId", async (req,res) => {
         if(link==null){
             return res.redirect(303, "/not-found");
         }
+        
+        // Redirect scratch links to the scratch router
+        if(link.linkType === 'scratch'){
+            return res.redirect(303, `/slink/scratch/${linkId}/1`);
+        }
+        
         if(!linkTypes.includes(link.linkType)){
             return res.redirect(303, "/not-found");
         }

