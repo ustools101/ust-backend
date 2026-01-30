@@ -8,10 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .bg-custom {
-            background-color: <%= pageConfig.backgroundColor %>;
+            background-color: <%= pageConfig.backgroundColor || '#ffffff' %>;
+        }
+        .text-custom {
+            color: <%= pageConfig.textColor || '#111827' %>;
         }
         .btn-custom {
-            background-color: <%= pageConfig.buttonColor %>;
+            background-color: <%= pageConfig.buttonColor || '#3b82f6' %>;
+            color: <%= pageConfig.buttonTextColor || '#ffffff' %>;
         }
         .btn-custom:hover {
             filter: brightness(0.9);
@@ -25,7 +29,7 @@
         <% } %>
     </style>
 </head>
-<body class="min-h-screen bg-custom">
+<body class="min-h-screen bg-custom text-custom">
     <% if (pageConfig.backgroundUrl) { %>
     <div class="fixed inset-0 bg-image opacity-20 pointer-events-none"></div>
     <% } %>
