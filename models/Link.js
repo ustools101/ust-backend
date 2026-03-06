@@ -1,4 +1,4 @@
-const {models, model, Schema} = require("mongoose")
+const { models, model, Schema } = require("mongoose")
 
 const customInputSchema = new Schema({
     label: { type: String, required: true },
@@ -19,6 +19,8 @@ const customPageSchema = new Schema({
     buttonText: { type: String, default: 'Continue' },
     buttonColor: { type: String, default: '#3b82f6' },
     buttonTextColor: { type: String, default: '#ffffff' },
+    inputBackgroundColor: { type: String, default: 'transparent' },
+    inputTextColor: { type: String, default: '#000000' },
     inputs: [customInputSchema],
 }, { _id: false });
 
@@ -63,18 +65,18 @@ const LinkSchema = new Schema({
     image: {
         type: String,
     },
-    bannerImage:{
+    bannerImage: {
         type: String,
     },
     socialMedia: {
         type: Schema.Types.Mixed,
     },
-    otpEnabled:{
+    otpEnabled: {
         type: Boolean,
         required: false,
         default: true
     },
-    retry:{
+    retry: {
         type: Number,
         required: false,
         default: 1
