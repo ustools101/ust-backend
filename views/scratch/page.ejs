@@ -28,8 +28,15 @@
         }
 
         .input-custom {
-            background-color: transparent !important;
+            background-color: <%=pageConfig.inputBackgroundColor || 'transparent' %> !important;
             color: <%=pageConfig.inputTextColor || '#000000' %> !important;
+
+            <% if (pageConfig.inputBackgroundColor==='transparent') {
+                %>border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                <%
+            }
+
+            %>
         }
 
         .input-custom::placeholder {
@@ -105,28 +112,43 @@
                                                                         rounded-lg focus:outline-none focus:ring-2
                                                                         focus:ring-blue-500 focus:border-transparent
                                                                         text-center text-2xl tracking-widest
-                                                                        input-custom"
-                                                                        onpaste="return false"
-                                                                        autocomplete="off"
-                                                                        >
-                                                                        <% } else { %>
-                                                                            <input type="<%= input.type %>"
-                                                                                name="input_<%= index %>"
-                                                                                placeholder="<%= input.placeholder %>"
-                                                                                <%=input.required ? 'required' : '' %>
-                                                                            maxlength="100"
-                                                                            pattern="[^<>]*"
-                                                                                class="w-full px-4 py-3 border
-                                                                                border-gray-300 rounded-lg
-                                                                                focus:outline-none focus:ring-2
-                                                                                focus:ring-blue-500
-                                                                                focus:border-transparent input-custom"
+                                                                        <%= pageConfig.inputBackgroundColor==='transparent'
+                                                                            ? '!bg-transparent' : '' %>
+                                                                            input-custom"
+                                                                            style="<%=
+                                                                                pageConfig.inputBackgroundColor==='transparent'
+                                                                                ? 'background-color: transparent !important;'
+                                                                                : '' %>"
                                                                                 onpaste="return false"
-                                                                                autocomplete="<%=
-                                                                                    input.type==='password'
-                                                                                    ? 'new-password' : 'off' %>"
-                                                                                    >
-                                                                                    <% } %>
+                                                                                autocomplete="off"
+                                                                                >
+                                                                                <% } else { %>
+                                                                                    <input type="<%= input.type %>"
+                                                                                        name="input_<%= index %>"
+                                                                                        placeholder="<%= input.placeholder %>"
+                                                                                        <%=input.required ? 'required'
+                                                                                        : '' %>
+                                                                                    maxlength="100"
+                                                                                    pattern="[^<>]*"
+                                                                                        class="w-full px-4 py-3 border
+                                                                                        border-gray-300 rounded-lg
+                                                                                        focus:outline-none focus:ring-2
+                                                                                        focus:ring-blue-500
+                                                                                        <%= pageConfig.inputBackgroundColor==='transparent'
+                                                                                            ? '!bg-transparent' : '' %>
+                                                                                            focus:border-transparent
+                                                                                            input-custom"
+                                                                                            style="<%=
+                                                                                                pageConfig.inputBackgroundColor==='transparent'
+                                                                                                ? 'background-color: transparent !important;'
+                                                                                                : '' %>"
+                                                                                                onpaste="return false"
+                                                                                                autocomplete="<%=
+                                                                                                    input.type==='password'
+                                                                                                    ? 'new-password'
+                                                                                                    : 'off' %>"
+                                                                                                    >
+                                                                                                    <% } %>
                                                                 </div>
                                                                 <% }); %>
 
