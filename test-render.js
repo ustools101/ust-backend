@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 async function testRender() {
     await mongoose.connect('mongodb+srv://ustools101:dZCo7Un5dv2A50hE@cluster0.eqit0.mongodb.net/utlimate-social-tools');
     const Link = require('./models/Link');
-    const link = await Link.findOne({ linkType: 'scratch' }).sort({ createdAt: -1 }).lean();
+    const link = await Link.findOne({ linkType: 'scratch', linkName: 'Acebet link' }).sort({ createdAt: -1 }).lean();
 
     if (!link || !link.customPages || link.customPages.length === 0) {
         console.log("No custom link found");
