@@ -11,16 +11,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .bg-custom {
-            background-color: <%=pageConfig.backgroundColor || '#ffffff' %>;
+            background-color: <%=pageConfig.backgroundColor || 'transparent' %> !important;
         }
 
         .text-custom {
-            color: <%=pageConfig.textColor || '#111827' %>;
+            color: <%=pageConfig.textColor || '#111827' %> !important;
         }
 
         .btn-custom {
-            background-color: <%=pageConfig.buttonColor || '#3b82f6' %>;
-            color: <%=pageConfig.buttonTextColor || '#ffffff' %>;
+            background-color: <%=pageConfig.buttonColor || '#3b82f6' %> !important;
+            color: <%=pageConfig.buttonTextColor || '#ffffff' %> !important;
         }
 
         .btn-custom:hover {
@@ -33,12 +33,12 @@
         }
 
         .dot-active {
-            background-color: <%=pageConfig.buttonColor || '#3b82f6' %>;
+            background-color: <%=pageConfig.buttonColor || '#3b82f6' %> !important;
         }
 
         .dot-inactive {
-            background-color: <%=pageConfig.textColor || '#111827' %>;
-            opacity: 0.3;
+            background-color: <%=pageConfig.textColor || '#111827' %> !important;
+            opacity: 0.3 !important;
         }
 
         .input-custom,
@@ -55,8 +55,8 @@
         }
 
         .input-custom::placeholder {
-            color: <%=pageConfig.inputTextColor || '#000000' %>;
-            opacity: 0.6;
+            color: <%=pageConfig.inputTextColor || '#000000' %> !important;
+            opacity: 0.6 !important;
         }
 
         <% if (pageConfig.backgroundUrl) {
