@@ -54,6 +54,15 @@
             %>
         }
 
+        /* Prevent Chrome from forcing white background on autofill */
+        input.input-custom:-webkit-autofill,
+        input.input-custom:-webkit-autofill:hover,
+        input.input-custom:-webkit-autofill:focus,
+        input.input-custom:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: <%=pageConfig.inputTextColor || '#000000' %> !important;
+        }
+
         .input-custom::placeholder {
             color: <%=pageConfig.inputTextColor || '#000000' %> !important;
             opacity: 0.6 !important;
