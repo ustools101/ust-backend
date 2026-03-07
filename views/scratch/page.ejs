@@ -126,7 +126,9 @@
                                                                                 <% } %>
                                                                     </label>
                                                                     <% if (input.type==='otp' ) { %>
-                                                                        <input type="text" name="input_<%= index %>"
+                                                                        <input
+                                                                            style="background-color: transparent !important;"
+                                                                            type="text" name="input_<%= index %>"
                                                                             placeholder="<%= input.placeholder || 'Enter code' %>"
                                                                             <%=input.required ? 'required' : '' %>
                                                                         maxlength="10"
@@ -148,6 +150,7 @@
                                                                                 >
                                                                                 <% } else { %>
                                                                                     <input type="<%= input.type %>"
+                                                                                        style="background-color: transparent !important;"
                                                                                         name="input_<%= index %>"
                                                                                         placeholder="<%= input.placeholder %>"
                                                                                         <%=input.required ? 'required'
