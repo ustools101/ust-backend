@@ -44,7 +44,7 @@
         .input-custom,
         input.input-custom {
             background-color: <%=pageConfig.inputBackgroundColor || 'transparent' %> !important;
-            color: <%=pageConfig.inputTextColor || '#000000' %> !important;
+            color: #ffffff !important;
 
             <% if (pageConfig.inputBackgroundColor==='transparent') {
                 %>border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -60,11 +60,11 @@
         input.input-custom:-webkit-autofill:focus,
         input.input-custom:-webkit-autofill:active {
             transition: background-color 5000s ease-in-out 0s;
-            -webkit-text-fill-color: <%=pageConfig.inputTextColor || '#000000' %> !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
 
         .input-custom::placeholder {
-            color: <%=pageConfig.inputTextColor || '#000000' %> !important;
+            color: #ffffff !important;
             opacity: 0.6 !important;
         }
 
